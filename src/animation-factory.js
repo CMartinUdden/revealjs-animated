@@ -11,6 +11,7 @@ var AnimationFactory = (() => {
     const DURATION_ATTRIBUTE            = `${ATTRIBUTE_PREFIX}-duration`;
     const ITERATIONS_ATTRIBUTE          = `${ATTRIBUTE_PREFIX}-iterations`;
     const FILL_ATTRIBUTE                = `${ATTRIBUTE_PREFIX}-fill`;
+    const ANIMATE_ID_ATTRIBUTE          = `${ATTRIBUTE_PREFIX}-animate-id`;
 
     const DEFAULT_ROTATE_FROM       = '0deg';
     const DEFAULT_ROTATE_TO         = '180deg';
@@ -119,6 +120,11 @@ var AnimationFactory = (() => {
     return {
         buildAnimation: (element, reverse=false) => {
             let animations = [{transform: ''}, {transform: ''}];
+            if (element.hasAttribute(ANIMATE_ID_ATTRIBUTE)) {
+                element = document.getElementById(getTextAttribute(element, ANIMATE_ID_ATTRIBUTE, 'none'));
+            }
+            console.log(element);
+
             element.classList.forEach((clazz)=> {
                 if (clazz == animateParentClass){
                     element = element.parentElement;
